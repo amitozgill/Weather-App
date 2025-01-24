@@ -1,0 +1,140 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background: linear-gradient(to right, #56ccf2, #2f80ed);
+      color: white;
+    }
+    header {
+      padding: 1rem;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    h1 {
+      margin: 0;
+    }
+    .weather-container {
+      margin: 2rem auto;
+      padding: 1rem;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+    }
+    .weather-data, .city-input {
+      margin: 1rem 0;
+    }
+    input {
+      padding: 0.5rem;
+      border: none;
+      border-radius: 5px;
+      width: 80%;
+      max-width: 300px;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #2f80ed;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #56ccf2;
+    }
+    .loading {
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Weather App</h1>
+  </header>
+  <div class="weather-container">
+    <div class="city-input">
+      <input type="text" id="city" placeholder="Enter city name">
+      <button onclick="fetchWeather()">Get Weather</button>
+    </div>
+    <div id="weather" class="weather-data">
+      <p class="loading">Enter a city to get current weather.</p>
+    </div>
+  </div>
+  <script>
+    async function fetchWeather() {
+      const city = document.getElementById('city').value;
+      const weatherDiv = document.getElementById('weather');
+      
+      if (!city) {
+        weatherDiv.innerHTML = '<p>Please enter a city name.</p>';
+        return;
+      }
+
+      const url = `https://weatherapi-com.p.rapidapi.com/current.json?q=${city}`;
+      const options = {
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': 'aff3f287d2mshe08736dd161fbe9p1de4b1jsn38d7990fa24e',
+          'x-rapidapi-host': 'weatherapi-com.p.rapidapi.com'
+        }
+      };
+
+      weatherDiv.innerHTML = '<p class="loading">Fetching weather data...</p>';
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+
+        // Check if valid data is returned
+        if (data.current) {
+          const weatherHTML = `
+            <h2>Current Weather in ${data.location.name}, ${data.location.country}</h2>
+            <p><strong>Temperature:</strong> ${data.current.temp_c}°C</p>
+            <p><strong>Condition:</strong> ${data.current.condition.text}</p>
+            <p><strong>Wind Speed:</strong> ${data.current.wind_kph} kph</p>
+            <p><img src="${data.current.condition.icon}" alt="Weather icon"></p>
+          `;
+          weatherDiv.innerHTML = weatherHTML;
+        } else {
+          weatherDiv.innerHTML = `<p>No weather data found for "${city}".</p>`;
+        }
+      } catch (error) {
+        weatherDiv.innerHTML = `<p>Error fetching data: ${error.message}</p>`;
+        console.error(error);
+      }
+    }
+  </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Weather App</h1>
+  </header>
+  <div class="weather-container">
+    <div class="city-input">
+      <input type="text" id="city" placeholder="Enter city name">
+      <button onclick="fetchWeather()">Get Weather</button>
+    </div>
+    <div id="weather" class="weather-data">
+      <p class="loading">Enter a city to get current weather.</p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
